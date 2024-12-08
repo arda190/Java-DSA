@@ -1,18 +1,26 @@
 public class CountryMap {
-    private int countryCount=0;
-    private City[] city;
-    private int komsuSayısı;
-    public CountryMap(int countryCount) {
-        this.city=new City[countryCount];
-        this.countryCount=countryCount;
-        this.komsuSayısı=0;
+    private City[] cities;
+    private String[][] routes;
+    public CountryMap(City[] cities, String[][] routes) {
+        this.cities = cities;
+        this.routes = routes;
     }
-    public void addCity(City myCity) {
-        city[komsuSayısı]=myCity;
-        komsuSayısı++;
+    public City[] getCities() {
+        return cities;
     }
-    public City[] getCity() {
-        return city;
+    public String[][] getRoutes() {
+        return routes;
+    }
+    public String[] getRoutes(String city) {
+        String[]cityRoutes = new String[routes.length];
+        int index=0;
+        for(String[] route : routes) {
+            if(route[0].equals(city)) {
+                cityRoutes[index] = route[1]+" "+route[2];
+                index++;
+            }
+        }
+        return cityRoutes;
     }
 
 
