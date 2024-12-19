@@ -1,7 +1,7 @@
 import java.io.*;
 import java.io.*;
 import java.util.*;
-public class Main {
+public class Main{
 
     public static int getCityNumber(String fileName) throws Exception {
         int cityNumber = 0;
@@ -128,12 +128,29 @@ public class Main {
         }
         return true;
     }
+    public static boolean cityExist(String city,String[] cities){
+        for(String a:cities){
+            if(city.equals(a)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public static void main(String[] args) throws Exception {
         //String filename=args[0];
-        String filename = "C:\\Users\\90506\\OneDrive\\Masaüstü\\Proje\\Map2.txt";
-        //String filename=args[0];
+        String filename = "C:\\Users\\90506\\OneDrive\\Masaüstü\\Proje\\Map8.txt";
+
+        try{
+            filename=args[0];
+        }
+        catch(Exception e){
+            System.out.println("File name cannot be empty");
+            return;
+        }
+
+
         int lineNumber = 0;
         //int cityNumber = getCityNumber(filename);
         int cityNumber = 0;
@@ -142,11 +159,10 @@ public class Main {
                 sc.nextLine();
                 lineNumber++;
             }
-            System.out.println(lineNumber);
         }
         catch (Exception e) {
             System.out.println("File not found");
-            System.exit(0);
+            return;
         }
 
         String line;
@@ -203,26 +219,23 @@ public class Main {
             for (int i = 0; i < lineNumber - 4; i++) {
                 if (scanner.hasNextLine()) {
                     line = scanner.nextLine();
+                    if (line.trim().isEmpty()) {
+                        errors[index] = "<" + errorLine + ">" + "Unexpected empty line.";
+                        isError = true;
+                        index++;
+                        errorLine++;
+                        continue;
+                    }
+
+
+
                     String[] parts = line.split(" ");
                     if(parts.length<3){
                         errors[index] = "<" + errorLine + ">" + "It must be this format <City City Time>.";
                         isError = true;
                         index++;
+                        errorLine++;
                         continue;
-                    }
-                    boolean isMismatch = true;
-                    for(i=0;i<getCityNumber(filename);i++){
-                        String a=getCities(filename)[0].split(" ")[i];
-                        System.out.println(a);
-                        if(a.equals(parts[0])|| a.equals(parts[1])){
-                            isMismatch = false;
-                            break;
-                        }
-                    }
-                    if(!isMismatch){
-                        errors[index] = "<" + errorLine + ">" + "City name is not match.>";
-                        isError = true;
-                        index++;
                     }
 
                     if (!(isLetter(parts[0]) && isLetter(parts[1]) && isInteger(parts[2]))) {
@@ -230,8 +243,17 @@ public class Main {
                         isError = true;
                         index++;
                     }
+                    String[] cities=getCities(filename)[0].split(" ");
+
+                    if (!(cityExist(parts[0],cities)&&cityExist(parts[1],cities))) {
+                        errors[index] = "<" + errorLine + ">" + "City in the route is not listed in the cities.";
+                        isError = true;
+                        index++;
+
+                    }
                     errorLine++;
                 }
+
             }
             int numberOfRoutes =0;
             int currentRouteNumber = errorLine - start;
@@ -250,8 +272,13 @@ public class Main {
             if (scanner.hasNextLine()) {
                 line = scanner.nextLine();
                 String[] parts = line.split(" ");
-                if (!(isLetter(parts[0]) && isLetter(parts[1]))) {
+                if(parts.length<2){
+                    isError = true;
                     errors[index] = "<" + errorLine + ">" + "It must be this format <City City>.";
+                }
+                else if (!(isLetter(parts[0]) && isLetter(parts[1]))) {
+                    errors[index] = "<" + errorLine + ">" + "It must be this format <City City>.";
+                    isError = true;
                 }
             }
         }
