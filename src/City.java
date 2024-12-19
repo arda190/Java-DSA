@@ -1,11 +1,15 @@
 public class City {
     private String name;
-
-    public City(String name){
-        this.name=name;
+    private int index;
+    public City(String name, int index) {
+        this.name = name;
+        this.index = index;
     }
-    public String getName(){
-        return this.name;
+    public String getName() {
+        return name;
+    }
+    public int getIndex() {
+        return index;
     }
 
 }
