@@ -139,9 +139,7 @@ public class Main{
 
 
     public static void main(String[] args) throws Exception {
-        //String filename=args[0];
-        String filename = "C:\\Users\\90506\\OneDrive\\Masaüstü\\Proje\\Map8.txt";
-
+        String filename;
         try{
             filename=args[0];
         }
@@ -150,9 +148,7 @@ public class Main{
             return;
         }
 
-
         int lineNumber = 0;
-        //int cityNumber = getCityNumber(filename);
         int cityNumber = 0;
         try (Scanner sc = new Scanner(new File(filename))) {
             while (sc.hasNextLine()) {

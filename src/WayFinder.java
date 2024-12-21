@@ -2,7 +2,6 @@ public class WayFinder{
     CountryMap map;
 
     public WayFinder(CountryMap map) {
-
         this.map = map;
     }
 
@@ -33,7 +32,7 @@ public class WayFinder{
             visited[currentIndex] = true;
 
             String[] routes = map.getRoutes(map.getCities()[currentIndex].getName());
-            if (routes == null || routes.length == 0) continue; // Rota yoksa geç
+            if (routes == null || routes.length == 0) continue; 
 
             for (String route : routes) {
                 if (route == null) continue;
