@@ -1,5 +1,3 @@
-import javax.imageio.stream.ImageInputStream;
-import javax.swing.*;
 
 public class DirectedGraph {
     int[][] matrix;
