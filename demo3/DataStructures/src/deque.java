@@ -89,5 +89,10 @@ public class deque<T> {
         array=newArray;
     }
 
+    public boolean isEmpty() {
+        return index==0;
+    }
+
+
 
 }
